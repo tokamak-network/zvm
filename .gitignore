@@ -1,0 +1,19 @@
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+.DS_Store
+
+# Powers of tau files
+*.ptau
+
+# Compiled circuit files
+*.sym
+*.wasm
+*.r1cs
+*.json
+
+*.zkey
+*.wtns
