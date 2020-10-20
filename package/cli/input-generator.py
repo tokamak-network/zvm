@@ -2,7 +2,7 @@ import sys
 import math
 
 if len(sys.argv) != 2:
-  print ("Enter infix expression")
+  print ("Enter infix expression without any space (e.g., \"5*5+2\"")
   exit(1)
 
 expression = sys.argv[1]
