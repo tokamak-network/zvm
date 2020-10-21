@@ -1,0 +1,51 @@
+datasource db {
+  provider = "sqlite"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// model Post {
+//   id        Int     @id @default(autoincrement())
+//   title     String
+//   content   String?
+//   published Boolean @default(false)
+//   author    User?   @relation(fields: [authorId], references: [id])
+//   authorId  Int?
+// }
+
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String @unique
+  keys Keystore[]
+}
+
+
+// model Config {
+//   id String @unique
+//   address String
+// }
+
+model Keystore {
+  address String @id
+  owner User? @relation(fields: [ownerId], references: [id])
+  ownerId Int?
+  encrypted String? // stringified json
+  balance Int?
+}
+
+model EncryptedWallet {
+  id String @id @default(uuid())
+  ciphertext String
+  iv String
+  algorithm String
+  keylen Int
+  kdf String
+  N Int
+  r Int
+  p Int
+  salt String
+}
+
