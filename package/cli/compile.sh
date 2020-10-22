@@ -20,6 +20,8 @@ snarkjs zkey verify $1.r1cs pot12_final.ptau circuit_0002.zkey
 snarkjs zkey beacon circuit_0002.zkey circuit_final.zkey 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f 10 -n="Final Beacon phase2"
 snarkjs zkey verify $1.r1cs pot12_final.ptau circuit_final.zkey
 snarkjs zkey export verificationkey circuit_final.zkey verification_key.json
+# 여기까지는 미리 사용자 로컬 환경에 존재해야 함.
+
 snarkjs wtns calculate $1.wasm src/$2 witness.wtns
 snarkjs wtns debug $1.wasm src/$2 witness.wtns $1.sym --trigger --get --set
 
