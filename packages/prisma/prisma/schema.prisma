@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Keystore {
+  id   Int @id @default(autoincrement())
+  address   String
+  encrypted String?
+  balance   Int?
+}
+
+model EncryptedWallet {
+  id         String @id @default(uuid())
+  ciphertext String
+  iv         String
+  algorithm  String
+  keylen     Int
+  kdf        String
+  N          Int
+  r          Int
+  p          Int
+  salt       String
+}
