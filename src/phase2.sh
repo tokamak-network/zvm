@@ -3,7 +3,7 @@
 if [ $# -ne 1 ];
 then 
     echo "Please check the required parameters"
-    echo "$> ./compile.sh [circom file]"
+    echo "$> ./compile.sh [circom file name]"
     exit 1
 fi
 
@@ -11,7 +11,7 @@ echo compile $1
 
 snarkjs powersoftau verify pot12_final.ptau
 
-circom ../circuits/$1.circom --r1cs --wasm --sym -v
+circom circuits/$1.circom --r1cs --wasm --sym -v
 snarkjs r1cs info $1.r1cs
 snarkjs r1cs export json $1.r1cs $1.r1cs.json
 # cat $1.r1cs.json
