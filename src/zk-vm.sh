@@ -2,11 +2,11 @@
 
 function help () {
     echo "Commands"
-    echo "1. Setup phase 1:          $> ./zk-vm.sh phase1"
-    echo "2. Setup phase 2:          $> ./zk-vm.sh phase2 [circuit name] [verification key file name]"
-    echo "3. Debug with the witness: $> ./zk-vm.sh debug [circuit name] [input json file path]"
-    echo "4. Generate a proof:       $> ./zk-vm.sh generate-proof [proof file name] [public file name]"
-    echo "5. Verify a proof:         $> ./zk-vm.sh verify-proof [verification key file path] [public file path] [proof file path]"
+    echo "1. Setup phase 1:          $ ./zk-vm.sh phase1"
+    echo "2. Setup phase 2:          $ ./zk-vm.sh phase2 [circuit name] [verification key file name]"
+    echo "3. Debug with the witness: $ ./zk-vm.sh debug [circuit name] [input json file path]"
+    echo "4. Generate a proof:       $ ./zk-vm.sh generate-proof [proof file name] [public file name]"
+    echo "5. Verify a proof:         $ ./zk-vm.sh verify-proof [verification key file path] [public file path] [proof file path]"
 } 
 
 # phase 1 setup
