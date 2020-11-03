@@ -58,8 +58,8 @@ $ cat input.json
 * *operators* array does the operators needed to be evalueated.
     > Each operator maps to one unsigned integer since Circom does not support string data type. For example, + is equal to 0, - is 1, * is 2 and / is 3.
 
-These arrays are assumed as stacks, so the element on the far right start to be evaluated first. 
-For example, *input.json* describes *8 * 7 * 6 * 5 / 4*.
+These arrays are assumed as stacks, so the element on the far right starts to be evaluated first. 
+For example, *input.json* describes *(8 + 7 + 6 + 5) / 4*.
 
 ```
 $ ./zk-vm.sh debug stack-calculator input.json
