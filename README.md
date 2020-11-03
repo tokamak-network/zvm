@@ -79,7 +79,7 @@ You generate a proof using the calculated witness.
 $ ./zk-vm.sh generate-proof proof public
 ```
 
-## Verifying the proof
+## Verify the proof
 You verify the proof and it prints the verification result.
 ``` 
 $ ./zk-vm.sh verify-proof proof.json public.json
