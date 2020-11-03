@@ -39,7 +39,7 @@ template SimpleCalculator(num_numbers){
             result = 0;
         }
     }
-    out <== result;
+    out <-- result;
 }
 
 component main = SimpleCalculator(3);

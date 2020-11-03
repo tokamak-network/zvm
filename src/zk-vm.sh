@@ -3,10 +3,10 @@
 function help () {
     echo "Commands"
     echo "1. Setup phase 1:          $ ./zk-vm.sh phase1"
-    echo "2. Setup phase 2:          $ ./zk-vm.sh phase2 [circuit name] [verification key file name]"
+    echo "2. Setup phase 2:          $ ./zk-vm.sh phase2 [circuit name]"
     echo "3. Debug with the witness: $ ./zk-vm.sh debug [circuit name] [input json file path]"
     echo "4. Generate a proof:       $ ./zk-vm.sh generate-proof [proof file name] [public file name]"
-    echo "5. Verify a proof:         $ ./zk-vm.sh verify-proof [verification key file path] [public file path] [proof file path]"
+    echo "5. Verify a proof:         $ ./zk-vm.sh verify-proof [[proof file path] [public file path] "
 } 
 
 # phase 1 setup
@@ -21,8 +21,8 @@ then
     snarkjs powersoftau prepare phase2 pot12_beacon.ptau pot12_final.ptau -v
 
 # phase 2 setup
-# > ./zk-vm.sh phase2 [circuit name] [verification key file name]
-elif [ "$1" == "phase2" -a $# -eq 3 ]
+# > ./zk-vm.sh phase2 [circuit name]
+elif [ "$1" == "phase2" -a $# -eq 2 ]
 then
     if [ -e circuits/$2.circom ]
     then 
@@ -36,7 +36,7 @@ then
         snarkjs zkey verify $2.r1cs pot12_final.ptau circuit_0002.zkey
         snarkjs zkey beacon circuit_0002.zkey circuit_final.zkey 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f 10 -n="Final Beacon phase2"
         snarkjs zkey verify $2.r1cs pot12_final.ptau circuit_final.zkey
-        snarkjs zkey export verificationkey circuit_final.zkey $3.json
+        snarkjs zkey export verificationkey circuit_final.zkey verification_key.json
     else 
         echo "The circuit does not exist."
         help
@@ -62,13 +62,13 @@ then
     snarkjs groth16 prove circuit_final.zkey witness.wtns $2.json $3.json
 
 # verify proof
-# ./zk-vm.sh verify-proof [verification key file path] [public file path] [proof file path]
-elif [ "$1" == "verify-proof" -a $# -eq 4 ]
+# ./zk-vm.sh verify-proof [proof file path] [public file path] 
+elif [ "$1" == "verify-proof" -a $# -eq 3 ]
 then
 
     if [ -e $2  -a -e $3 ]
     then 
-        snarkjs groth16 verify $2 $3 $4
+        snarkjs groth16 verify verification_key.json $3 $2
 
     else
         echo "proof file or public file are not found."
