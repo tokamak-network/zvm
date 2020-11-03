@@ -1,3 +1,5 @@
+# input json file generator for simple-calculator.circom
+
 import sys
 import math
 
@@ -20,6 +22,6 @@ for i in range(int(length / 2)):
 
 json_output += expression[len(expression) - 1] + ", " + str(operation) + "]}"
 
-f = open("./src/input.json", 'w')
+f = open("simple-input.json", 'w')
 f.write(json_output)
 f.close()

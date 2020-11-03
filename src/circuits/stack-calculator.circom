@@ -61,7 +61,7 @@ template stackCalculator(num_operands){
         
     }
     log(left);
-    out <== left;
+    out <-- left;
 }
 
 component main = stackCalculator(10);
