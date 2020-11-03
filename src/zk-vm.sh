@@ -2,16 +2,16 @@
 
 function help () {
     echo "Commands"
-    echo "1. Setup phase 1:          $> ./zk-vm.sh phase1"
-    echo "2. Setup phase 2:          $> ./zk-vm.sh phase2 [circuit name] [verification key file name]"
-    echo "3. Debug with the witness: $> ./zk-vm.sh debug [circuit name] [input json file path]"
-    echo "4. Generate a proof:       $> ./zk-vm.sh generate-proof [proof file name] [public file name]"
-    echo "5. Verify a proof:         $> ./zk-vm.sh verify-proof [verification key file path] [public file path] [proof file path]"
+    echo "1. Setup phase 1:          $ ./zk-vm.sh phase1"
+    echo "2. Setup phase 2:          $ ./zk-vm.sh phase2 [circuit name] [verification key file name]"
+    echo "3. Debug with the witness: $ ./zk-vm.sh debug [circuit name] [input json file path]"
+    echo "4. Generate a proof:       $ ./zk-vm.sh generate-proof [proof file name] [public file name]"
+    echo "5. Verify a proof:         $ ./zk-vm.sh verify-proof [verification key file path] [public file path] [proof file path]"
 } 
 
 # phase 1 setup
 # > ./zk-vm.sh phase1
-if [ $1 == "phase1" -a $# -eq 1 ]
+if [ "$1" == "phase1" -a $# -eq 1 ]
 then
     snarkjs powersoftau new bn128 12 pot12_0000.ptau -v
     snarkjs powersoftau contribute pot12_0000.ptau pot12_0001.ptau --name="First contribution" -v -e="some random text" # You can enter your random text.
@@ -22,7 +22,7 @@ then
 
 # phase 2 setup
 # > ./zk-vm.sh phase2 [circuit name] [verification key file name]
-elif [ $1 == "phase2" -a $# -eq 3 ]
+elif [ "$1" == "phase2" -a $# -eq 3 ]
 then
     if [ -e circuits/$2.circom ]
     then 
@@ -44,7 +44,7 @@ then
 
 # debug
 # ./zk-vm.sh debug [circuit name] [input json file]
-elif [ $1 == "debug" -a $# -eq 3 ]
+elif [ "$1" == "debug" -a $# -eq 3 ]
 then
     if [ -e circuits/$2.circom -a -e $3 ]
     then 
@@ -57,13 +57,13 @@ then
 
 # generate proof
 # ./zk-vm.sh generate-proof [proof file name] [public file name]
-elif [ $1 == "generate-proof" -a $# -eq 3 ]
+elif [ "$1" == "generate-proof" -a $# -eq 3 ]
 then 
     snarkjs groth16 prove circuit_final.zkey witness.wtns $2.json $3.json
 
 # verify proof
 # ./zk-vm.sh verify-proof [verification key file path] [public file path] [proof file path]
-elif [ $1 == "verify-proof" -a $# -eq 4 ]
+elif [ "$1" == "verify-proof" -a $# -eq 4 ]
 then
 
     if [ -e $2  -a -e $3 ]
@@ -75,12 +75,10 @@ then
     fi
 
 # help
-elif [ $1 == "help" ]
+elif [ "$1" == "help" ]
 then 
-    echo "help"
     help
 
 else 
-    echo "else help"
     help
 fi
