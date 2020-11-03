@@ -20,7 +20,7 @@ Commands
 2. Setup phase 2:          $ ./zk-vm.sh phase2 [circuit name]
 3. Debug with the witness: $ ./zk-vm.sh debug [circuit name] [input json file path]
 4. Generate a proof:       $ ./zk-vm.sh generate-proof [proof file name] [public file name]
-5. Verify a proof:         $ ./zk-vm.sh verify-proof [public file path] [proof file path]
+5. Verify a proof:         $ ./zk-vm.sh verify-proof [proof file path] [public file path] 
 ```
 
 Please check [snarkjs](https://github.com/iden3/snarkjs) and [circom](https://github.com/iden3/circom) if you need how it works.
