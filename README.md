@@ -49,6 +49,18 @@ $ ./zk-vm.sh phase2 stack-calculator
 
 ## Debug: Calculate a witness and debug the circuit
 You execute the circuit with your input file and get debugging result.
+
+```
+$ cat input.json
+{"operands": [4, 5, 6, 7, 8, 0, 0, 0, 0, 0], "operators": [3, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+```
+* *operands* array represents the values needed to be calculated.
+* *operators* array does the operators needed to be evalueated.
+    > Each operator maps to one unsigned integer since Circom does not support string data type. For example, + is equal to 0, - is 1, * is 2 and / is 3.
+
+These arrays are assumed as stacks, so the element on the far right start to be evaluated first. 
+For example, *input.json* describes *8 * 7 * 6 * 5 / 4*.
+
 ```
 $ ./zk-vm.sh debug stack-calculator input.json
 
