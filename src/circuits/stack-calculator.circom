@@ -124,4 +124,6 @@ template stackCalculator(num_operands){
     out <-- left;
 }
 
+// This circuit requires the maximum size of the input array.
+// It calculates up to 10 values in the input signals.
 component main = stackCalculator(10);

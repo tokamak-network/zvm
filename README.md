@@ -23,7 +23,7 @@ Commands
 Please check [snarkjs](https://github.com/iden3/snarkjs) and [circom](https://github.com/iden3/circom) if you need how it works.
 
 # Tutorial
-This tutorial leads you how to play with the zk-vm circuit.
+This tutorial leads you how to play with [the zk-calculator circuit](https://github.com/Onther-Tech/zk-vm/blob/main/src/circuits/stack-calculator.circom).
 
 ## Phase 1: General setup
 In this phase, you start a new powers of tau ceremony, contribute to the ceremony and apply a random beacon.
