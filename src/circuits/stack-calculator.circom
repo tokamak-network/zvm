@@ -1,27 +1,28 @@
+// ADD: OPCODE 0
 function add(left_operand, right_operand){
     return left_operand + right_operand;
 }
-
+// SUB: OPCODE 1
 function sub(left_operand, right_operand){
     return left_operand - right_operand;
 }
-
+// MUL: OPCODE 2
 function mul(left_operand, right_operand){
     return left_operand * right_operand;
 }
-
+// DIV: OPCODE 3
 function div(left_operand, right_operand){
     return (left_operand - left_operand % right_operand) / right_operand;
 }
-
+// MOD: OPCODE 4
 function mod(left_operand, right_operand){
     return left_operand % right_operand;
 }
-
+// POW: OPCODE 5
 function pow(left_operand, right_operand){
     return left_operand ** right_operand;
 }
-
+// GCD: OPCODE 6
 function gcd(left_operand, right_operand){
     var temp;
     while (right_operand != 0){
@@ -31,45 +32,43 @@ function gcd(left_operand, right_operand){
     }
     return left_operand;
 }
-
+// LCM: OPCODE 7
 function lcm(left_operand, right_operand){
     var gcd_value;
     gcd_value = gcd(left_operand, right_operand);
-
     if (gcd_value == 0) return 0;
     return div(left_operand * right_operand, gcd_value);
-
 }
-
+// FACTORIAL: OPCODE 8
 function factorial(left_operand){
     if (left_operand == 0 || left_operand == 1) return 1;
     else return left_operand * factorial(left_operand - 1);
 }
-
+// LT: OPCODE 9
 function lt(left_operand, right_operand){
     return left_operand < right_operand;
 }
-
+// LE: OPCODE 10
 function le(left_operand, right_operand){
     return left_operand <= right_operand;
 }
-
+// GT: OPCODE 11
 function gt(left_operand, right_operand){
     return left_operand > right_operand;
 }
-
+// GE: OPCODE 12
 function ge(left_operand, right_operand){
     return left_operand >= right_operand;
 }
-
+// EQ: OPCODE 13
 function eq(left_operand, right_operand){
     return left_operand == right_operand;
 }
-
+// NE: OPCODE 14
 function ne(left_operand, right_operand){
     return left_operand != right_operand;
 }
-
+// ISZERO: OPCODE 15
 function iszero(left_operand){
     return left_operand == 0;
 }
