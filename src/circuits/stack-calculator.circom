@@ -1,3 +1,4 @@
+// [Binary Operators]
 // ADD: OPCODE 0
 function add(left_operand, right_operand){
     return left_operand + right_operand;
@@ -39,43 +40,56 @@ function lcm(left_operand, right_operand){
     if (gcd_value == 0) return 0;
     return div(left_operand * right_operand, gcd_value);
 }
-// FACTORIAL: OPCODE 8
+// COMB: OPCODE 8
+function comb(left_operand, right_operand){
+    var i;
+    var p = 1;
+    var q = 1;
+    for(i = 0; i < right_operand; i++){
+        p = p * (left_operand - i);
+        q = q * (right_operand - i);
+    }
+    return div(p, q);
+}
+// LT
+function lt(left_operand, right_operand){
+    return left_operand < right_operand;
+}
+// LE
+function le(left_operand, right_operand){
+    return left_operand <= right_operand;
+}
+// GT
+function gt(left_operand, right_operand){
+    return left_operand > right_operand;
+}
+// GE
+function ge(left_operand, right_operand){
+    return left_operand >= right_operand;
+}
+// EQ
+function eq(left_operand, right_operand){
+    return left_operand == right_operand;
+}
+// NE
+function ne(left_operand, right_operand){
+    return left_operand != right_operand;
+}
+
+// [Unary Operators]
+// ISZERO
+function iszero(left_operand){
+    return left_operand == 0;
+}
+// FACTORIAL
 function factorial(left_operand){
     if (left_operand == 0 || left_operand == 1) return 1;
     else return left_operand * factorial(left_operand - 1);
 }
-// LT: OPCODE 9
-function lt(left_operand, right_operand){
-    return left_operand < right_operand;
-}
-// LE: OPCODE 10
-function le(left_operand, right_operand){
-    return left_operand <= right_operand;
-}
-// GT: OPCODE 11
-function gt(left_operand, right_operand){
-    return left_operand > right_operand;
-}
-// GE: OPCODE 12
-function ge(left_operand, right_operand){
-    return left_operand >= right_operand;
-}
-// EQ: OPCODE 13
-function eq(left_operand, right_operand){
-    return left_operand == right_operand;
-}
-// NE: OPCODE 14
-function ne(left_operand, right_operand){
-    return left_operand != right_operand;
-}
-// ISZERO: OPCODE 15
-function iszero(left_operand){
-    return left_operand == 0;
-}
 
 
 template stackCalculator(num_operands){
-    var MAX_OPCODE = 15;
+    var MAX_OPCODE = 8;
     signal private input operands[num_operands];
     signal private input operators[num_operands];
     signal output out;
@@ -116,8 +130,17 @@ template stackCalculator(num_operands){
         if(op == 0) left = add(left, right);
         if(op == 1) left = sub(left, right);         
         if(op == 2) left = mul(left, right);
-        if(op == 3 && right != 0) {
-            left = div(left, right);
+        if(op == 3) {
+            if(right != 0) left = div(left, right);
+            else left = -1;
+        }
+        if(op == 4) left = mod(left, right);
+        if(op == 5) left = pow(left, right);
+        if(op == 6) left = gcd(left, right);
+        if(op == 7) left = lcm(left, right);
+        if(op == 8) {
+            if(left > right) left = comb(left, right);
+            else left = -1;
         }
     }
     log(left);
