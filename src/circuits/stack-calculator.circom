@@ -11,11 +11,72 @@ function mul(left_operand, right_operand){
 }
 
 function div(left_operand, right_operand){
-    assert(right_operand != 0);
     return (left_operand - left_operand % right_operand) / right_operand;
 }
 
+function mod(left_operand, right_operand){
+    return left_operand % right_operand;
+}
+
+function pow(left_operand, right_operand){
+    return left_operand ** right_operand;
+}
+
+function gcd(left_operand, right_operand){
+    var temp;
+    while (right_operand != 0){
+        temp = left_operand % right_operand;
+        left_operand = right_operand;
+        right_operand = temp;
+    }
+    return left_operand;
+}
+
+function lcm(left_operand, right_operand){
+    var gcd_value;
+    gcd_value = gcd(left_operand, right_operand);
+
+    if (gcd_value == 0) return 0;
+    return div(left_operand * right_operand, gcd_value);
+
+}
+
+function factorial(left_operand){
+    if (left_operand == 0 || left_operand == 1) return 1;
+    else return left_operand * factorial(left_operand - 1);
+}
+
+function lt(left_operand, right_operand){
+    return left_operand < right_operand;
+}
+
+function le(left_operand, right_operand){
+    return left_operand <= right_operand;
+}
+
+function gt(left_operand, right_operand){
+    return left_operand > right_operand;
+}
+
+function ge(left_operand, right_operand){
+    return left_operand >= right_operand;
+}
+
+function eq(left_operand, right_operand){
+    return left_operand == right_operand;
+}
+
+function ne(left_operand, right_operand){
+    return left_operand != right_operand;
+}
+
+function iszero(left_operand){
+    return left_operand == 0;
+}
+
+
 template stackCalculator(num_operands){
+    var MAX_OPCODE = 15;
     signal private input operands[num_operands];
     signal private input operators[num_operands];
     signal output out;
@@ -23,7 +84,6 @@ template stackCalculator(num_operands){
     // Assertion; Check input signals
     var length = 0;
     var i;
-    var MAX_OPCODE = 3;
 
     assert(operators[num_operands - 1] == 0);
 
@@ -33,7 +93,6 @@ template stackCalculator(num_operands){
         }
         assert(operators[i - 1] <= MAX_OPCODE);
     }
-
     length = num_operands - length - 1;
 
     // Calculate the top index
@@ -44,12 +103,13 @@ template stackCalculator(num_operands){
     var right;
     var op;
 
-    // Pop
+    // Pop; Initialize the left operand value
     left = operands[peek];
     peek = peek - 1;
 
     // Calculate the series of op codes
     while(peek >= 0){
+        // Pop; Allocate the right operand value and the operator code
         right = operands[peek];
         op = operators[peek];
         peek = peek - 1;
@@ -57,8 +117,9 @@ template stackCalculator(num_operands){
         if(op == 0) left = add(left, right);
         if(op == 1) left = sub(left, right);         
         if(op == 2) left = mul(left, right);
-        if(op == 3) left = (left - left % right) / right; // div(left, right);
-        
+        if(op == 3 && right != 0) {
+            left = div(left, right);
+        }
     }
     log(left);
     out <-- left;
