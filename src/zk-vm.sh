@@ -6,7 +6,7 @@ function help () {
     echo "2. Setup phase 2:          $ ./zk-vm.sh phase2 [circuit name]"
     echo "3. Debug with the witness: $ ./zk-vm.sh debug [circuit name] [input json file path]"
     echo "4. Generate a proof:       $ ./zk-vm.sh generate-proof [proof file name] [public file name]"
-    echo "5. Verify a proof:         $ ./zk-vm.sh verify-proof [[proof file path] [public file path] "
+    echo "5. Verify a proof:         $ ./zk-vm.sh verify-proof [proof file path] [public file path] "
 } 
 
 # phase 1 setup
