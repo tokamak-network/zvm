@@ -92,6 +92,9 @@ template stackCalculator(num_operands){
     var MAX_OPCODE = 8;
     signal private input operands[num_operands];
     signal private input operators[num_operands];
+
+    // var memory_stack[100] 
+
     signal output out;
 
     // Assertion; Check input signals
