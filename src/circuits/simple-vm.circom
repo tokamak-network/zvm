@@ -44,6 +44,33 @@ function ne(left_operand, right_operand){
 function iszero(left_operand){
     return left_operand == 0;
 }
+function and(left_operand, right_operand){
+    return left_operand & right_operand;
+}
+function or(left_operand, right_operand){
+    return left_operand | right_operand;
+}
+function xor(left_operand, right_operand){
+    return left_operand ^ right_operand;
+}
+function not(left_operand){
+    return ~left_operand;
+}
+function shl(left_operand, right_operand){
+    return left_operand << right_operand;
+}
+function shr(left_operand, right_operand){
+    return left_operand >> right_operand;
+}
+function sar(left_operand, right_operand){
+    // [NOTE] Limited function in the finite field, Z/pZ (p = 21888242871839275222246405745257275088548364400416034343698204186575808495617)
+    // Reference: https://stackoverflow.com/questions/25206670/how-to-implement-arithmetic-right-shift-from-logical-shift
+    return (left_operand >> right_operand) | (-(left_operand >> 253) << (254 - right_operand));
+}
+function sha253(left_operand, right_operand){
+
+    return 0;
+}
 
 // [The other functions]
 function gcd(left_operand, right_operand){
@@ -106,110 +133,128 @@ template SimpleVM(input_size){
         pc = pc + 1
 
         // 0x00	STOP; Halts execution
-        if(op == 0){ 
+        if(op == 0x0){ 
             pc = input_size
         }
         // 0x01	ADD; Addition operation
-        if(op == 1){
+        if(op == 0x1){
             stack[stack_pointer - 1] = add(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;
         }
         // 0x02	MUL; Multiplication operation
-        if(op == 2){
+        if(op == 0x2){
             stack[stack_pointer - 1] = mul(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;
         }
         // 0x03	SUB; Subtraction operation
-        if(op == 3){
+        if(op == 0x3){
             stack[stack_pointer - 1] = sub(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;
         }
         // 0x04	DIV; Integer division operation
-        if(op == 4){
+        if(op == 0x4){
             stack[stack_pointer - 1] = stack[stack_pointer - 1] == 0 ? 0 : div(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;
         }
         // 0x05 SDIV; Signed integer division operation (truncated)
         // 0x06 MOD; Modulo remainder operation
-        if(op == 6){
+        if(op == 0x6){
             stack[stack_pointer - 1] = mod(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;            
         }
         // 0x07 SMOD; Signed modulo remainder operation
         // 0x08 ADDMOD; Modulo addition operation
-        if(op == 8){
+        if(op == 0x8){
             stack[stack_pointer - 2] = addmod(stack[stack_pointer], stack[stack_pointer - 1], stack[stack_pointer - 2]);
             stack_pointer = stack_pointer - 2;             
         }
         // 0x09 MULMOD; Modulo multiplication operation
-        if(op == 9){
+        if(op == 0x9){
             stack[stack_pointer - 2] = mulmod(stack[stack_pointer], stack[stack_pointer - 1], stack[stack_pointer - 2]);
             stack_pointer = stack_pointer - 2;      
         }
         // 0x0a EXP; Exponential operation
-        if(op == 10){
+        if(op == 0xa){
             stack[stack_pointer - 1] = exp(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;            
         }
         // 0x0b SIGNEXTEND; Extend length of two's complement signed integer
         // 0x0c GCD; Greatest common divisor operation - Only referenced in simple-vm
-        if(op == 12){
+        if(op == 0xc){
             stack[stack_pointer - 1] = gcd(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;            
         }
         // 0x0d LCM; Least common multiple operation - Only referenced in simple-vm
-        if(op == 13){
+        if(op == 0xd){
             stack[stack_pointer - 1] = lcm(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;       
         }
         // 0x0e COMBINATION; Combination operation (nCr) - Only referenced in simple-vm
-        if(op == 14){
+        if(op == 0xe){
             stack[stack_pointer - 1] = ge(stack[stack_pointer], stack[stack_pointer - 1]) ? comb(stack[stack_pointer], stack[stack_pointer - 1]) : 0;
             stack_pointer = stack_pointer - 1;            
         }
-
         // 0x0f FACTORIAL; Factorial operation (n!) - Only referenced in simple-vm
-        if(op == 15){
+        if(op == 0xf){
             stack[stack_pointer] = factorial(stack[stack_pointer]);          
         }
-
         // 0x10 LT; Less-than comparison
-        if(op == 16){
+        if(op == 0x10){
             stack[stack_pointer - 1] = lt(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;   
         }
         // 0x11 GT;	Greater-than comparison
-        if(op == 17){
+        if(op == 0x11){
             stack[stack_pointer - 1] = gt(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;   
         }
         // 0x12	SLT; Signed less-than comparison
         // 0x13	SGT; Signed greater-than comparison
         // 0x14	EQ;	Equality comparison
-        if(op == 20){
+        if(op == 0x14){
             stack[stack_pointer - 1] = eq(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;   
         }
         // 0x15	ISZERO;	Simple not operator
-        if(op == 21){
+        if(op == 0x15){
             stack[stack_pointer] = iszero(stack[stack_pointer]);
         }
-
-        // 0x60 PUSH
-        if(op == 96){
-            stack[stack_pointer + 1] = code[pc];
-            stack_pointer = stack_pointer + 1;
-            pc = pc + 1;
-        }
-
         // 0x16	AND; Bitwise AND operation
+        if(op == 0x16){
+            stack[stack_pointer - 1] = and(stack[stack_pointer], stack[stack_pointer - 1]);
+            stack_pointer = stack_pointer - 1;  
+        }
         // 0x17	OR; Bitwise OR operation
+        if(op == 0x17){
+            stack[stack_pointer - 1] = or(stack[stack_pointer], stack[stack_pointer - 1]);
+            stack_pointer = stack_pointer - 1;             
+        }
         // 0x18	XOR; Bitwise XOR operation
+        if(op == 0x18){
+            stack[stack_pointer - 1] = xor(stack[stack_pointer], stack[stack_pointer - 1]);
+            stack_pointer = stack_pointer - 1;             
+        }        
         // 0x19	NOT; Bitwise NOT operation
+        if(op == 0x19){
+            stack[stack_pointer] = not(stack[stack_pointer]);            
+        }   
         // 0x1a	BYTE; Retrieve single byte from word
         // 0x1b	SHL; Shift Left
+        if(op == 0x1b){
+            stack[stack_pointer - 1] = shl(stack[stack_pointer], stack[stack_pointer - 1]);
+            stack_pointer = stack_pointer - 1;             
+        }     
         // 0x1c	SHR; Logical Shift Right
+        if(op == 0x1c){
+            stack[stack_pointer - 1] = shr(stack[stack_pointer], stack[stack_pointer - 1]);
+            stack_pointer = stack_pointer - 1;             
+        }     
         // 0x1d	SAR; Arithmetic Shift Right
+        if(op == 0x1d){
+            stack[stack_pointer - 1] = sar(stack[stack_pointer], stack[stack_pointer - 1]);
+            stack_pointer = stack_pointer - 1;             
+        }     
+
         // 0x20	KECCAK256; Compute Keccak-256 hash
 
         // 0x21 - 0x2f	Unused	
@@ -255,6 +300,12 @@ template SimpleVM(input_size){
 
         // 0x5c - 0x5f	Unused
 
+        // 0x60 PUSH
+        if(op == 0x60){
+            stack[stack_pointer + 1] = code[pc];
+            stack_pointer = stack_pointer + 1;
+            pc = pc + 1;
+        }
         // 0x60	PUSH1; Place 1 byte item on stack 
         // 0x61	PUSH2; Place 2-byte item on stack 
         // 0x62	PUSH3; Place 3-byte item on stack 
@@ -376,8 +427,6 @@ template SimpleVM(input_size){
         log(stack[1]);
         log(stack[0]);
     }
-
-
 
     out <-- stack[0]; // Dummy output
 }

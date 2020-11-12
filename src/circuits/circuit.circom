@@ -1,5 +1,5 @@
 template NAND() {
-    signal private input a;
+    signal input a;
     signal input b;
     signal output out;
 
