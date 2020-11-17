@@ -68,7 +68,6 @@ function sar(left_operand, right_operand){
     // Reference: https://stackoverflow.com/questions/25206670/how-to-implement-arithmetic-right-shift-from-logical-shift
     return (left_operand >> right_operand) | (-(left_operand >> 253) << (254 - right_operand));
 }
-
 // [The other functions]
 function gcd(left_operand, right_operand){
     var temp;
@@ -434,9 +433,9 @@ template SimpleVM(CODE_SIZE){
 
         log(active_mem_size);
 
+
     }
 
     out <-- stack[0]; // Dummy output
 }
-
 component main = SimpleVM(8);
