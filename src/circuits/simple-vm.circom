@@ -68,10 +68,6 @@ function sar(left_operand, right_operand){
     // Reference: https://stackoverflow.com/questions/25206670/how-to-implement-arithmetic-right-shift-from-logical-shift
     return (left_operand >> right_operand) | (-(left_operand >> 253) << (254 - right_operand));
 }
-function sha253(left_operand, right_operand){
-    // WIP
-    return 0;
-}
 
 // [The other functions]
 function gcd(left_operand, right_operand){
@@ -97,10 +93,9 @@ function lcm(left_operand, right_operand){
     return div(left_operand * right_operand, gcd_value);
 }
 function comb(left_operand, right_operand){
-    var i;
     var p = 1;
     var q = 1;
-    for(i = 0; i < right_operand; i++){
+    for(var i = 0; i < right_operand; i++){
         p = p * (left_operand - i);
         q = q * (right_operand - i);
     }
@@ -108,17 +103,16 @@ function comb(left_operand, right_operand){
 }
 function factorial(left_operand){
     var result = 1;
-    var i;
-    for(i = 1; i <= left_operand; i++){
+    for(var i = 1; i <= left_operand; i++){
         result = result * i;
     }
     return result;
 }
 
-template SimpleVM(input_size){
+template SimpleVM(CODE_SIZE){
 
     // Signal Definitions
-    signal private input code[input_size];
+    signal private input code[CODE_SIZE];
     signal output out;
 
     // Stack initialization
@@ -129,22 +123,25 @@ template SimpleVM(input_size){
     // Memory initialization
     var MEM_SIZE = 8;
     var memory[MEM_SIZE] = [0,0,0,0,0,0,0,0];
-    var mem_length = 0;
+    var is_active[MEM_SIZE]= [0,0,0,0,0,0,0,0];
+    var active_mem_size = 0;
+    var x = 0;
 
     // Program counter initialization
     var pc = 0;
 
-    // Opcode variable
+    // Opcode variable initialization
     var op;
 
-    while(pc < input_size){
-        
-        op = code[pc]; // Extract op code from the code
+    while(pc < CODE_SIZE){
+
+        // Extract op code from the code
+        op = code[pc]; 
         pc = pc + 1
 
         // 0x00	STOP; Halts execution
         if(op == 0x0){ 
-            pc = input_size
+            pc = CODE_SIZE
         }
         // 0x01	ADD; Addition operation
         if(op == 0x1){
@@ -166,26 +163,26 @@ template SimpleVM(input_size){
             stack[stack_pointer - 1] = stack[stack_pointer - 1] == 0 ? 0 : div(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;
         }
-        // 0x05 SDIV; Signed integer division operation (truncated)
+        // [TODO] 0x05 SDIV; Signed integer division operation (truncated)
         // 0x06 MOD; Modulo remainder operation
         if(op == 0x6){
-            stack[stack_pointer - 1] = mod(stack[stack_pointer], stack[stack_pointer - 1]);
+            stack[stack_pointer - 1] = stack[stack_pointer - 1] == 0 ? 0 : mod(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;            
         }
         // [TODO] 0x07 SMOD; Signed modulo remainder operation
         // 0x08 ADDMOD; Modulo addition operation
         if(op == 0x8){
-            stack[stack_pointer - 2] = addmod(stack[stack_pointer], stack[stack_pointer - 1], stack[stack_pointer - 2]);
+            stack[stack_pointer - 2] = stack[stack_pointer - 2] == 0 ? 0 : addmod(stack[stack_pointer], stack[stack_pointer - 1], stack[stack_pointer - 2]);
             stack_pointer = stack_pointer - 2;             
         }
         // 0x09 MULMOD; Modulo multiplication operation
         if(op == 0x9){
-            stack[stack_pointer - 2] = mulmod(stack[stack_pointer], stack[stack_pointer - 1], stack[stack_pointer - 2]);
+            stack[stack_pointer - 2] = stack[stack_pointer - 2] == 0 ? 0 : mulmod(stack[stack_pointer], stack[stack_pointer - 1], stack[stack_pointer - 2]);
             stack_pointer = stack_pointer - 2;      
         }
         // 0x0a EXP; Exponential operation
         if(op == 0xa){
-            stack[stack_pointer - 1] = exp(stack[stack_pointer], stack[stack_pointer - 1]);
+            stack[stack_pointer - 1] = stack[stack_pointer - 1] < 0 ? 0 : exp(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;            
         }
         // [TODO] 0x0b SIGNEXTEND; Extend length of two's complement signed integer
@@ -248,7 +245,7 @@ template SimpleVM(input_size){
         if(op == 0x19){
             stack[stack_pointer] = not(stack[stack_pointer]);            
         }   
-        // [TODO] 0x1a	BYTE; Retrieve single byte from word
+        // [TODO] 0x1a BYTE; Retrieve single byte from word
         // 0x1b	SHL; Shift Left
         if(op == 0x1b){
             stack[stack_pointer - 1] = shl(stack[stack_pointer], stack[stack_pointer - 1]);
@@ -264,6 +261,7 @@ template SimpleVM(input_size){
             stack[stack_pointer - 1] = sar(stack[stack_pointer], stack[stack_pointer - 1]);
             stack_pointer = stack_pointer - 1;             
         }     
+        // 0x1e - 0x1f  Unused
 
         // [TODO] 0x20	KECCAK256; Compute Keccak-256 hash
 
@@ -295,11 +293,11 @@ template SimpleVM(input_size){
 
         // 0x47 - 0x4f	Unused
 
-        // 0x50	POP; Remove word from stack 
+        // 0x50	POP; Remove an item from stack 
         if(op == 0x50){
             stack_pointer = stack_pointer - 1;
         }
-        // 0x51	MLOAD; Load word from memory
+        // 0x51	MLOAD; Load an item from memory
         if(op == 0x51){
             // [NOTE] It is referenced by index of unsigned int array
             if(stack_pointer >= 0){
@@ -307,25 +305,28 @@ template SimpleVM(input_size){
                 stack[stack_pointer] = (stack[stack_pointer] <= MEM_SIZE) ? memory[mem_index] : 0;  
             }
         }
-        // 0x52	MSTORE; Save word to memory
+        // 0x52	MSTORE; Save an item to memory
         if(op == 0x52){
             var mem_index = stack[stack_pointer];
+            if(is_active[mem_index] == 0){
+                active_mem_size = active_mem_size + 1;
+                is_active[mem_index] = 1;
+            }
             memory[mem_index] = stack[stack_pointer - 1];
             stack_pointer = stack_pointer - 2;
-            mem_length = mem_length + 1;
         }
         // [TODO] 0x53	MSTORE8; Save byte to memory 
         // [TODO] 0x54	SLOAD; Load word from storage
         // [TODO] 0x55	SSTORE; Save word to storage
         // 0x56	JUMP; Alter the program counter
         if(op == 0x56){
-            pc = stack[stack_pointer] < input_size ? stack[stack_pointer] : input_size;
+            pc = stack[stack_pointer] < CODE_SIZE ? stack[stack_pointer] : CODE_SIZE;
             stack_pointer = stack_pointer - 1;
         }
         // 0x57	JUMPI; Conditionally alter the program counter
         if(op == 0x57){
             if(stack[stack_pointer - 1]){
-                pc = stack[stack_pointer] < input_size ? stack[stack_pointer] : input_size;
+                pc = stack[stack_pointer] < CODE_SIZE ? stack[stack_pointer] : CODE_SIZE;
                 stack_pointer = stack_pointer - 2;
             }
         }
@@ -339,7 +340,7 @@ template SimpleVM(input_size){
         // 0x59	MSIZE; Get the size of active memory in bytes 
         if(op == 0x59){
             if(stack_pointer + 1 < STACK_SIZE){
-                stack[stack_pointer + 1] = mem_length;
+                stack[stack_pointer + 1] = active_mem_size;
                 stack_pointer = stack_pointer + 1; 
             }
         }
@@ -350,9 +351,11 @@ template SimpleVM(input_size){
 
         // 0x60 PUSH; Place one uint item on stack
         if(op == 0x60){
-            stack[stack_pointer + 1] = code[pc];
-            stack_pointer = stack_pointer + 1;
-            pc = pc + 1;
+            if(stack_pointer + 1 < STACK_SIZE){
+                stack[stack_pointer + 1] = code[pc];
+                stack_pointer = stack_pointer + 1;
+                pc = pc + 1;
+            }
         }
         // [TODO] 0x60	PUSH1; Place 1 byte item on stack 
         // ...
@@ -420,14 +423,17 @@ template SimpleVM(input_size){
         // [TODO] 0xff	SELFDESTRUCT; Halt execution and register account for later deletion
 
 
-        log(stack[7]);
-        log(stack[6]);
-        log(stack[5]);
-        log(stack[4]);
-        log(stack[3]);
-        log(stack[2]);
-        log(stack[1]);
-        log(stack[0]);
+        // log(stack[7]);
+        // log(stack[6]);
+        // log(stack[5]);
+        // log(stack[4]);
+        // log(stack[3]);
+        // log(stack[2]);
+        // log(stack[1]);
+        // log(stack[0]);
+
+        log(active_mem_size);
+
     }
 
     out <-- stack[0]; // Dummy output
