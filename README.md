@@ -39,7 +39,7 @@ $ ./zk-vm.sh phase1
 You compile a circuit, generate the reference *zkey* and contribute to the phase 2 ceremony, similar to the previous step. 
 Finally, you export the verification key which is used for verifying a proof.
 ```
-$ ./zk-vm.sh phase2 stack-calculator
+$ ./zk-vm.sh phase2 simple-vm
 
 ... 
 ```
@@ -48,25 +48,24 @@ $ ./zk-vm.sh phase2 stack-calculator
 You execute the circuit with your input file and get debugging result.
 
 ```
-$ cat input.json
-{"operands": [4, 5, 6, 7, 8, 0, 0, 0, 0, 0], "operators": [3, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+$ cat vm-input.json
+{"code": ["0x60",2,"0x60",6,"0x1","0x0","0x0", "0x0"]}
 ```
-* *operands* array represents the values needed to be calculated.
-* *operators* array does the operators needed to be evalueated.
-    > Each operator maps to one unsigned integer since Circom does not support string data type. For example, + is equal to 0, - is 1, * is 2 and / is 3.
-
-These arrays are assumed as stacks, so the element on the far right starts to be evaluated first. 
-For example, *input.json* describes *(8 + 7 + 6 + 5) / 4*.
+* *code* array represents bytecodes that EVM takes.
+For example, *vm-input.json* describes the following instructions.
+```
+PUSH 2
+PUSH 6
+ADD
+STOP
+```
 
 ```
-$ ./zk-vm.sh debug stack-calculator input.json
+$ ./zk-vm.sh debug simple-vm vm-input.json
 
 ...
 
-[INFO]  snarkJS: GET main.operands[0] --> 4
-[INFO]  snarkJS: GET main.operators[0] --> 3
-6
-[INFO]  snarkJS: SET main.out <-- 6
+[INFO]  snarkJS: SET main.out <-- 8
 [INFO]  snarkJS: FINISH: main
 ```
 
