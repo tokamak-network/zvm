@@ -112,7 +112,6 @@ template SimpleVM(CODE_LENGTH){
 
     // Signal definitions
     signal private input code[CODE_LENGTH];
-    signal output out;
 
     // Stack initialization
     var STACK_SIZE = 8;
@@ -326,7 +325,7 @@ template SimpleVM(CODE_LENGTH){
         // 0x57	JUMPI; Conditionally alter the program counter
         if(op == 0x57){
             if(stack[stack_pointer - 1]){
-                pc = stack[stack_pointer] < CODE_LENGTH ? stack[stack_pointer] : CODE_LENGTH;
+                pc = stack[stack_pointer] < CODE_LENGTH ? stack[stack_pointer] : pc;
                 stack_pointer = stack_pointer - 2;
             }
         }
@@ -429,3 +428,4 @@ template SimpleVM(CODE_LENGTH){
     CODE_LENGTH === pc;
 }
 component main = SimpleVM(16);
+
