@@ -54,8 +54,8 @@ $ cat vm-input.json
 * *code* array represents bytecodes that EVM takes.
 For example, *vm-input.json* describes the following instructions.
 ```
-PUSH 2
-PUSH 6
+PUSH 0x2
+PUSH 0x6
 ADD
 STOP
 ```
