@@ -65,7 +65,6 @@ $ ./zk-vm.sh debug simple-vm vm-input.json
 
 ...
 
-[INFO]  snarkJS: SET main.out <-- 8
 [INFO]  snarkJS: FINISH: main
 ```
 

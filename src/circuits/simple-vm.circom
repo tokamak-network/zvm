@@ -108,11 +108,10 @@ function factorial(left_operand){
     return result;
 }
 
-template SimpleVM(CODE_SIZE){
+template SimpleVM(CODE_LENGTH){
 
-    // Signal Definitions
-    signal private input code[CODE_SIZE];
-    signal output out;
+    // Signal definitions
+    signal private input code[CODE_LENGTH];
 
     // Stack initialization
     var STACK_SIZE = 8;
@@ -124,7 +123,6 @@ template SimpleVM(CODE_SIZE){
     var memory[MEM_SIZE] = [0,0,0,0,0,0,0,0];
     var is_active[MEM_SIZE]= [0,0,0,0,0,0,0,0];
     var active_mem_size = 0;
-    var x = 0;
 
     // Program counter initialization
     var pc = 0;
@@ -132,15 +130,15 @@ template SimpleVM(CODE_SIZE){
     // Opcode variable initialization
     var op;
 
-    while(pc < CODE_SIZE){
+    while(pc < CODE_LENGTH){
 
-        // Extract op code from the code
+        // Extract op code from the input signal
         op = code[pc]; 
         pc = pc + 1
 
         // 0x00	STOP; Halts execution
         if(op == 0x0){ 
-            pc = CODE_SIZE
+            pc = CODE_LENGTH
         }
         // 0x01	ADD; Addition operation
         if(op == 0x1){
@@ -266,6 +264,7 @@ template SimpleVM(CODE_SIZE){
 
         // 0x21 - 0x2f	Unused	
 
+    /*
         // [TODO] 0x30	ADDRESS; Get address of currently executing account
         // [TODO] 0x31	BALANCE; Get balance of the given account
         // [TODO] 0x32	ORIGIN;	Get execution origination address 
@@ -289,12 +288,13 @@ template SimpleVM(CODE_SIZE){
         // [TODO] 0x44	DIFFICULTY; Get the block's difficulty 
         // [TODO] 0x45	GASLIMIT; Get the block's gas limit 
         // [TODO] 0x46	CHAINID; Returns the current chain’s EIP-155 unique identifier
+    */
 
         // 0x47 - 0x4f	Unused
 
         // 0x50	POP; Remove an item from stack 
         if(op == 0x50){
-            stack_pointer = stack_pointer - 1;
+            stack_pointer = stack_pointer < 0 ? stack_pointer : stack_pointer - 1;
         }
         // 0x51	MLOAD; Load an item from memory
         if(op == 0x51){
@@ -319,13 +319,13 @@ template SimpleVM(CODE_SIZE){
         // [TODO] 0x55	SSTORE; Save word to storage
         // 0x56	JUMP; Alter the program counter
         if(op == 0x56){
-            pc = stack[stack_pointer] < CODE_SIZE ? stack[stack_pointer] : CODE_SIZE;
+            pc = stack[stack_pointer] < CODE_LENGTH ? stack[stack_pointer] : CODE_LENGTH;
             stack_pointer = stack_pointer - 1;
         }
         // 0x57	JUMPI; Conditionally alter the program counter
         if(op == 0x57){
             if(stack[stack_pointer - 1]){
-                pc = stack[stack_pointer] < CODE_SIZE ? stack[stack_pointer] : CODE_SIZE;
+                pc = stack[stack_pointer] < CODE_LENGTH ? stack[stack_pointer] : pc;
                 stack_pointer = stack_pointer - 2;
             }
         }
@@ -382,6 +382,7 @@ template SimpleVM(CODE_SIZE){
             }
         }
 
+    /*
         // [TODO] 0xa0	LOG0; Append log record with no topics
         // [TODO] 0xa1	LOG1; Append log record with one topic
         // [TODO] 0xa2	LOG2; Append log record with two topics
@@ -420,22 +421,11 @@ template SimpleVM(CODE_SIZE){
         // [TODO] 0xfd	REVERT; Stop execution and revert state changes, without consuming all provided gas and providing a reason
         // [TODO] 0xfe	INVALID; Designated invalid instruction
         // [TODO] 0xff	SELFDESTRUCT; Halt execution and register account for later deletion
-
-
-        // log(stack[7]);
-        // log(stack[6]);
-        // log(stack[5]);
-        // log(stack[4]);
-        // log(stack[3]);
-        // log(stack[2]);
-        // log(stack[1]);
-        // log(stack[0]);
-
-        log(active_mem_size);
-
+    */
 
     }
 
-    out <-- stack[0]; // Dummy output
+    CODE_LENGTH === pc;
 }
-component main = SimpleVM(8);
+component main = SimpleVM(16);
+
