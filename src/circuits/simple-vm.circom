@@ -325,7 +325,7 @@ template SimpleVM(CODE_LENGTH){
         // 0x57	JUMPI; Conditionally alter the program counter
         if(op == 0x57){
             if(stack[stack_pointer - 1]){
-                pc = stack[stack_pointer] < CODE_LENGTH ? stack[stack_pointer] : pc;
+                pc = stack[stack_pointer] < CODE_LENGTH ? stack[stack_pointer] : CODE_LENGTH;
                 stack_pointer = stack_pointer - 2;
             }
         }
