@@ -49,7 +49,7 @@ You execute the circuit with your input file and get debugging result.
 
 ```
 $ cat vm-input.json
-{"code": ["0x60",2,"0x60",6,"0x1","0x0","0x0", "0x0"]}
+{"code": ["0x60",2,"0x60",6,"0x1","0x0","0x0","0x0","0x0","0x0","0x0","0x0","0x0","0x0","0x0","0x0"]}
 ```
 * *code* array represents bytecodes that EVM takes.
 For example, *vm-input.json* describes the following instructions.
