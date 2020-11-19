@@ -120,7 +120,7 @@ template SimpleVM(CODE_LENGTH){
 
     // Memory initialization
     var MEM_SIZE = 8;
-    var memory[MEM_SIZE] = [0,0,0,0,0,0,0,0];
+    var memory[MEM_SIZE] = [0,0,0,0,0,0,0,0,0];
     var is_active[MEM_SIZE]= [0,0,0,0,0,0,0,0];
     var active_mem_size = 0;
 
@@ -431,6 +431,27 @@ template SimpleVM(CODE_LENGTH){
         // [TODO] 0xff	SELFDESTRUCT; Halt execution and register account for later deletion
     */
 
+    log(stack[7]);
+    log(stack[6]);
+    log(stack[5]);
+    log(stack[4]);
+    log(stack[3]);
+    log(stack[2]);
+    log(stack[1]);
+    log(stack[0]);
+
+    log(9999);
+    log(stack_pointer);
+    log(9999);
+
+    log(memory[7]);
+    log(memory[6]);
+    log(memory[5]);
+    log(memory[4]);
+    log(memory[3]);
+    log(memory[2]);
+    log(memory[1]);
+    log(memory[0]);
     
     }
 
