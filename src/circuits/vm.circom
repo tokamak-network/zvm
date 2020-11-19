@@ -110,6 +110,9 @@ function factorial(left_operand){
 
 template VM(CODE_LENGTH){
 
+    // LOG FLAG; False as default
+    var LOG_FLAG = 1;
+
     // Signal definitions
     signal private input code[CODE_LENGTH];
 
@@ -425,7 +428,30 @@ template VM(CODE_LENGTH){
         // [TODO] 0xfd	REVERT; Stop execution and revert state changes, without consuming all provided gas and providing a reason
         // [TODO] 0xfe	INVALID; Designated invalid instruction
         // [TODO] 0xff	SELFDESTRUCT; Halt execution and register account for later deletion
-    
+
+        if(LOG_FLAG){
+            // Stack log; For loop does not work here.
+            if(stack_pointer == 7) log(stack[7]);
+            if(stack_pointer >= 6) log(stack[6]);
+            if(stack_pointer >= 5) log(stack[5]);
+            if(stack_pointer >= 4) log(stack[4]);
+            if(stack_pointer >= 3) log(stack[3]);
+            if(stack_pointer >= 2) log(stack[2]);
+            if(stack_pointer >= 1) log(stack[1]);
+            if(stack_pointer >= 0) log(stack[0]);
+
+            log(10**10); // Separator; FYI, Circom does not support string type.
+
+            // Memory log; For loop does not work here.
+            log(memory[7]);
+            log(memory[6]);
+            log(memory[5]);
+            log(memory[4]);
+            log(memory[3]);
+            log(memory[2]);
+            log(memory[1]);
+            log(memory[0]);
+        }
     }
 
     CODE_LENGTH === pc;

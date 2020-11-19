@@ -231,5 +231,4 @@ $ ./zk-vm.sh verify-proof proof.json public.json
 [INFO]  snarkJS: OK!
 ```
 
-
-**If you have any question, please email us or create an issue. All your questions are welcome :)**
+### Please create an issue if you have any questions.
