@@ -189,7 +189,7 @@ $ ./zk-vm.sh phase1
 You compile a circuit, generate the reference *zkey* and contribute to the phase 2 ceremony, similar to the previous step. 
 Finally, you export the verification key which is used for verifying a proof.
 ```
-$ ./zk-vm.sh phase2 simple-vm
+$ ./zk-vm.sh phase2 vm
 
 ... 
 ```
@@ -209,9 +209,9 @@ PUSH 0x6
 ADD
 STOP
 ```
-
+* You can read the details of circuit input [here](https://github.com/Onther-Tech/zk-vm/blob/main/INPUT.md)
 ```
-$ ./zk-vm.sh debug simple-vm vm-input.json
+$ ./zk-vm.sh debug vm vm-input.json
 
 ...
 
@@ -230,3 +230,6 @@ You verify the proof and it prints the verification result.
 $ ./zk-vm.sh verify-proof proof.json public.json
 [INFO]  snarkJS: OK!
 ```
+
+
+**If you have any question, please email us or create an issue. All your questions are welcome :)**

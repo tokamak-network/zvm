@@ -120,7 +120,7 @@ template VM(CODE_LENGTH){
 
     // Memory initialization
     var MEM_SIZE = 8;
-    var memory[MEM_SIZE] = [0,0,0,0,0,0,0,0,0];
+    var memory[MEM_SIZE] = [0,0,0,0,0,0,0,0];
     var is_active[MEM_SIZE]= [0,0,0,0,0,0,0,0];
     var active_mem_size = 0;
 
@@ -314,7 +314,6 @@ template VM(CODE_LENGTH){
             }
         }
 
-
         // [TODO] 0x53	MSTORE8; Save byte to memory 
         // [TODO] 0x54	SLOAD; Load word from storage
         // [TODO] 0x55	SSTORE; Save word to storage
@@ -432,4 +431,3 @@ template VM(CODE_LENGTH){
     CODE_LENGTH === pc;
 }
 component main = VM(16);
-
