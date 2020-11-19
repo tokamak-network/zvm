@@ -108,7 +108,7 @@ function factorial(left_operand){
     return result;
 }
 
-template SimpleVM(CODE_LENGTH){
+template VM(CODE_LENGTH){
 
     // Signal definitions
     signal private input code[CODE_LENGTH];
@@ -275,7 +275,6 @@ template SimpleVM(CODE_LENGTH){
 
         // 0x21 - 0x2f	Unused	
 
-    /*
         // [TODO] 0x30	ADDRESS; Get address of currently executing account
         // [TODO] 0x31	BALANCE; Get balance of the given account
         // [TODO] 0x32	ORIGIN;	Get execution origination address 
@@ -299,7 +298,6 @@ template SimpleVM(CODE_LENGTH){
         // [TODO] 0x44	DIFFICULTY; Get the block's difficulty 
         // [TODO] 0x45	GASLIMIT; Get the block's gas limit 
         // [TODO] 0x46	CHAINID; Returns the current chain’s EIP-155 unique identifier
-    */
 
         // 0x47 - 0x4f	Unused
 
@@ -390,7 +388,6 @@ template SimpleVM(CODE_LENGTH){
             }
         }
 
-    /*
         // [TODO] 0xa0	LOG0; Append log record with no topics
         // [TODO] 0xa1	LOG1; Append log record with one topic
         // [TODO] 0xa2	LOG2; Append log record with two topics
@@ -429,33 +426,10 @@ template SimpleVM(CODE_LENGTH){
         // [TODO] 0xfd	REVERT; Stop execution and revert state changes, without consuming all provided gas and providing a reason
         // [TODO] 0xfe	INVALID; Designated invalid instruction
         // [TODO] 0xff	SELFDESTRUCT; Halt execution and register account for later deletion
-    */
-
-    log(stack[7]);
-    log(stack[6]);
-    log(stack[5]);
-    log(stack[4]);
-    log(stack[3]);
-    log(stack[2]);
-    log(stack[1]);
-    log(stack[0]);
-
-    log(9999);
-    log(stack_pointer);
-    log(9999);
-
-    log(memory[7]);
-    log(memory[6]);
-    log(memory[5]);
-    log(memory[4]);
-    log(memory[3]);
-    log(memory[2]);
-    log(memory[1]);
-    log(memory[0]);
     
     }
 
     CODE_LENGTH === pc;
 }
-component main = SimpleVM(16);
+component main = VM(16);
 
