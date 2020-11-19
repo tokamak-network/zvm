@@ -111,7 +111,7 @@ function factorial(left_operand){
 template VM(CODE_LENGTH){
 
     // LOG FLAG; False as default
-    var LOG_FLAG = 1;
+    var LOG_FLAG = 0;
 
     // Signal definitions
     signal private input code[CODE_LENGTH];
