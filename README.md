@@ -1,5 +1,5 @@
 # zk-vm
-Zero Knowledge based Virtual Machine in Circom language
+Zero Knowledge based Ethereum Virtual Machine in Circom language
 
 ## Dependencies
 You need node v14, [snarkjs](https://github.com/iden3/snarkjs) and [circom](https://github.com/iden3/circom).
