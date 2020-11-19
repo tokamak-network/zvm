@@ -136,6 +136,17 @@ template SimpleVM(CODE_LENGTH){
         op = code[pc]; 
         pc = pc + 1
 
+        // 0x52	MSTORE; Save an item to memory
+        if(op == 0x52){
+            var mem_index = stack[stack_pointer];
+            if(is_active[mem_index] == 0){
+                active_mem_size = active_mem_size + 1;
+                is_active[mem_index] = 1;
+            }
+            memory[mem_index] = stack[stack_pointer - 1];
+            stack_pointer = stack_pointer - 2;
+        }
+
         // 0x00	STOP; Halts execution
         if(op == 0x0){ 
             pc = CODE_LENGTH
@@ -304,16 +315,8 @@ template SimpleVM(CODE_LENGTH){
                 stack[stack_pointer] = (stack[stack_pointer] <= MEM_SIZE) ? memory[mem_index] : 0;  
             }
         }
-        // 0x52	MSTORE; Save an item to memory
-        if(op == 0x52){
-            var mem_index = stack[stack_pointer];
-            if(is_active[mem_index] == 0){
-                active_mem_size = active_mem_size + 1;
-                is_active[mem_index] = 1;
-            }
-            memory[mem_index] = stack[stack_pointer - 1];
-            stack_pointer = stack_pointer - 2;
-        }
+
+
         // [TODO] 0x53	MSTORE8; Save byte to memory 
         // [TODO] 0x54	SLOAD; Load word from storage
         // [TODO] 0x55	SSTORE; Save word to storage
@@ -321,12 +324,17 @@ template SimpleVM(CODE_LENGTH){
         if(op == 0x56){
             pc = stack[stack_pointer] < CODE_LENGTH ? stack[stack_pointer] : CODE_LENGTH;
             stack_pointer = stack_pointer - 1;
+            if(code[pc] == 0x5b) pc = pc + 1;
+            else pc = CODE_LENGTH;
+
         }
         // 0x57	JUMPI; Conditionally alter the program counter
         if(op == 0x57){
             if(stack[stack_pointer - 1]){
                 pc = stack[stack_pointer] < CODE_LENGTH ? stack[stack_pointer] : CODE_LENGTH;
                 stack_pointer = stack_pointer - 2;
+                if(code[pc] == 0x5b) pc = pc + 1;
+                else pc = CODE_LENGTH;
             }
         }
         // 0x58	GETPC; Get the value of the program counter prior to the increment 
@@ -423,6 +431,7 @@ template SimpleVM(CODE_LENGTH){
         // [TODO] 0xff	SELFDESTRUCT; Halt execution and register account for later deletion
     */
 
+    
     }
 
     CODE_LENGTH === pc;
