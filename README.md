@@ -82,7 +82,7 @@ The checked opcodes have been implemented.
 - [x] 0x56	JUMP; Alter the program counter
 - [x] 0x57	JUMPI; Conditionally alter the program counter
 - [x] 0x58	GETPC; Get the value of the program counter prior to the increment 
-- [ ] 0x59	MSIZE; Get the size of active memory in bytes 
+- [x] 0x59	MSIZE; Get the size of active memory in bytes 
 - [ ] 0x5a	GAS; Get the amount of available gas, including the corresponding reduction the amount of available gas
 - [x] 0x5b	JUMPDEST; Mark a valid destination for jumps
 
