@@ -230,3 +230,6 @@ You verify the proof and it prints the verification result.
 $ ./zk-vm.sh verify-proof proof.json public.json
 [INFO]  snarkJS: OK!
 ```
+
+
+**If you have any question, please email us or create an issue. All your questions are welcome :)**
