@@ -209,7 +209,7 @@ PUSH 0x6
 ADD
 STOP
 ```
-You can read the details of circuit input [here](https://github.com/Onther-Tech/zk-vm/blob/main/INPUT.md)
+* You can read the details of circuit input [here](https://github.com/Onther-Tech/zk-vm/blob/main/INPUT.md)
 ```
 $ ./zk-vm.sh debug vm vm-input.json
 
