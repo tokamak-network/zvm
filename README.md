@@ -173,7 +173,7 @@ Commands
 Please check [snarkjs](https://github.com/iden3/snarkjs/blob/master/README.md) and [circom](https://github.com/iden3/circom/blob/master/README.md) if you need how it works.
 
 # Tutorial
-This tutorial leads you how to play with [zk-vm circuit](https://github.com/pleiades-s/zk-vm/blob/main/src/circuits/vm.circom).
+This tutorial leads you how to play with [zk-vm circuit](https://github.com/Onther-Tech/zk-vm/blob/main/src/circuits/vm.circom).
 
 ## Phase 1: General setup
 In this phase, you start a new powers of tau ceremony, contribute to the ceremony and apply a random beacon.
