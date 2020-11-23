@@ -106,7 +106,7 @@ $ ./zk-vm.sh debug vm vm-input.json
 0
 [INFO]  snarkJS: FINISH: main
 ```
-It prints the stack and memory. There are 2, 3 on the stack after the second loop and only 5 (= 2 + 3) exist on the stack at the end of loops. Try the other arithmetic operations if you want.
+It prints the stack and memory. There are 2, 3 on the stack after the second loop and only 5 (= 2 + 3) exists on the stack at the end of loops. Try the other arithmetic operations if you want.
 
 ### Comparion & Bitwise logic operations
 ```
