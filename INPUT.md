@@ -1,5 +1,5 @@
 # Guide
-You can test the circuit by passing input file in json format (.json).
+You can test the circuit by passing an input file in json format (.json).
 
 ## What does the input file consist of?
 The input json file contain an array named `code`. Each item of the array represents a single opcode of EVM or an operand; it can be either decimal or hexadecimal number.
@@ -637,4 +637,8 @@ $ ./zk-vm.sh debug vm vm-input.json
 0
 0
 [INFO]  snarkJS: FINISH: main
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 7f026e4f27a287c9604b2be1205b46c54a958ab7
