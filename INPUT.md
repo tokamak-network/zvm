@@ -1,5 +1,5 @@
 # Guide
-You can test the circuit by passing input file in json format (.json).
+You can test the circuit by passing an input file in json format (.json).
 
 ## What does the input file consist of?
 The input json file contain an array named `code`. Each item of the array represents a single opcode of EVM or an operand; it can be either decimal or hexadecimal number.
