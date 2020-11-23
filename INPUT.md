@@ -637,8 +637,4 @@ $ ./zk-vm.sh debug vm vm-input.json
 0
 0
 [INFO]  snarkJS: FINISH: main
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 7f026e4f27a287c9604b2be1205b46c54a958ab7
