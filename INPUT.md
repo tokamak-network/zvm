@@ -108,7 +108,7 @@ $ ./zk-vm.sh debug vm vm-input.json
 ```
 It prints the stack and memory. There are 2, 3 on the stack after the second loop and only 5 (= 2 + 3) exists on the stack at the end of loops. Try the other arithmetic operations if you want.
 
-### Comparion & Bitwise logic operations
+### Comparison & Bitwise logic operations
 ```
 000 PUSH 0x10
 002 PUSH 0x3
