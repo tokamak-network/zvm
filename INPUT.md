@@ -213,8 +213,8 @@ The circuit can be used for comparion and bitwise logic operations as you have s
 006 MSTORE
 007 POP
 008 PUSH 0x7
-009 MLOAD
-010 STOP
+010 MLOAD
+011 STOP
 ```
 ```
 $ cat vm-input.json
@@ -336,9 +336,9 @@ The circuit also works for setting and getting values on the stack and memory.
 006 STOP
 007 JUMPDEST
 008 PUSH 0x2
-009 PUSH 0x3
-010 ADD
-011 STOP
+010 PUSH 0x3
+012 ADD
+013 STOP
 ```
 ```
 $ cat vm-input.json
