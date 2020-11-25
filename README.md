@@ -182,6 +182,9 @@ $ cd src
 $ ./zk-vm.sh phase1
 
 ... 
+
+[DEBUG] snarkJS: betaTauG1: fft 12 join  12/12  1/1 0/2
+[DEBUG] snarkJS: betaTauG1: fft 12 join  12/12  1/1 1/2
 ```
 [NOTE] You can customize the randomness on this step by modifying the script.
 
@@ -192,6 +195,8 @@ Finally, you export the verification key which is used for verifying a proof.
 $ ./zk-vm.sh phase2 vm
 
 ... 
+
+[INFO]  snarkJS: ZKey Ok!
 ```
 
 ## Debug: Calculate a witness and debug the circuit
@@ -215,6 +220,13 @@ $ ./zk-vm.sh debug vm vm-input.json
 
 ...
 
+[INFO]  snarkJS: START: main
+[INFO]  snarkJS: GET main.code[0] --> 96
+[INFO]  snarkJS: GET main.code[1] --> 2
+[INFO]  snarkJS: GET main.code[2] --> 96
+[INFO]  snarkJS: GET main.code[3] --> 6
+[INFO]  snarkJS: GET main.code[4] --> 1
+[INFO]  snarkJS: GET main.code[5] --> 0
 [INFO]  snarkJS: FINISH: main
 ```
 
