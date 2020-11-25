@@ -115,6 +115,7 @@ template VM(CODE_LENGTH){
 
     // Signal definitions
     signal private input code[CODE_LENGTH];
+    signal output out;
 
     // Stack initialization
     var STACK_SIZE = 8;
@@ -455,5 +456,6 @@ template VM(CODE_LENGTH){
     }
 
     CODE_LENGTH === pc;
+    out <== pc;
 }
 component main = VM(16);
