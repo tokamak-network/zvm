@@ -1,4 +1,4 @@
-# zk-vm
+# zvm
 Zero Knowledge based Ethereum Virtual Machine in Circom language
 
 ## Dependencies
@@ -10,7 +10,7 @@ npm install -g circom@latest
 npm install -g snarkjs@latest
 ```
 ## Status
-zk-vm is currently under busy construction. The circuit supports the EVM opcodes, the stack size upto eight (unsigned integers), memory size upto eight (unsigned integers) and sixteen input signal array which represents the bytecode for EVM.
+zvm is currently under busy construction. The circuit supports the EVM opcodes, the stack size upto eight (unsigned integers), memory size upto eight (unsigned integers) and sixteen input signal array which represents the bytecode for EVM.
 
 ### Completion
 The checked opcodes have been implemented.
