@@ -35,7 +35,7 @@ N-2th element of the stack
 
 0th element of the memory
 ```
-[NOTE] `10000000000` represents just a seperator of log output.
+[NOTE] `10000000000` represents just a separator of log output since circom does not support string type.
 
 ### Arithmetic operations
 ```
