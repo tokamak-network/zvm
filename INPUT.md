@@ -52,7 +52,7 @@ These instructions are converted into `code` array like this.
 
 ```
 $ cd src
-$ ./zk-vm.sh debug vm vm-input.json
+$ ./zvm.sh debug vm vm-input.json
 
 ...
 
@@ -124,7 +124,7 @@ $ cat vm-input.json
 This `code` array makes the circuit work like the instructions. 
 
 ```
-$ ./zk-vm.sh debug vm vm-input.json
+$ ./zvm.sh debug vm vm-input.json
 
 [INFO]  snarkJS: START: main
 [INFO]  snarkJS: GET main.code[0] --> 96
@@ -221,7 +221,7 @@ $ cat vm-input.json
 {"code": ["0x60","0x2","0x60","0x3","0x60","0x7","0x52","0x50","0x60","0x7","0x51","0x0","0x0","0x0","0x0","0x0"]}
 ```
 ```
-$ ./zk-vm.sh debug vm vm-input.json
+$ ./zvm.sh debug vm vm-input.json
 
 ... 
 
@@ -345,7 +345,7 @@ $ cat vm-input.json
 {"code": ["0x60","0x0","0x15","0x60","0x7","0x57","0x0","0x5b","0x60","0x2","0x60","0x3","0x1","0x0","0x0","0x0"]}
 ```
 ```
-$ ./zk-vm.sh debug vm vm-input.json
+$ ./zvm.sh debug vm vm-input.json
 
 ... 
 
@@ -461,7 +461,7 @@ $ cat vm-input.json
 {"code": ["0x60","0x1","0x60","0x2","0x60","0x3","0x81","0x83","0x0","0x0","0x0","0x0","0x0","0x0","0x0","0x0"]}
 ```
 ```
-$ ./zk-vm.sh debug vm vm-input.json
+$ ./zvm.sh debug vm vm-input.json
 
 ... 
 
@@ -566,7 +566,7 @@ $ cat vm-input.json
 {"code": ["0x60","0x1","0x60","0x2","0x60","0x3","0x91","0x0","0x0","0x0","0x0","0x0","0x0","0x0","0x0","0x0"]}
 ```
 ```
-$ ./zk-vm.sh debug vm vm-input.json
+$ ./zvm.sh debug vm vm-input.json
 
 ...
 

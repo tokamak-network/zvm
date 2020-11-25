@@ -152,7 +152,7 @@ The checked opcodes have been implemented.
 
 
 # Quick Start
-You can simply do following things with [zk-vm.sh](https://github.com/Onther-Tech/zk-vm/blob/main/src/zk-vm.sh)
+You can simply do following things with [zvm.sh](https://github.com/Onther-Tech/zvm/blob/main/src/zvm.sh)
 
 1. Building trusted setups
 2. Compile Circom circuits
@@ -161,25 +161,25 @@ You can simply do following things with [zk-vm.sh](https://github.com/Onther-Tec
 
 ```
 $ cd src
-$ ./zk-vm.sh
+$ ./zvm.sh
 Commands
-1. Setup phase 1:          $ ./zk-vm.sh phase1
-2. Setup phase 2:          $ ./zk-vm.sh phase2 [circuit name]
-3. Debug with the witness: $ ./zk-vm.sh debug [circuit name] [input json file path]
-4. Generate a proof:       $ ./zk-vm.sh generate-proof [proof file name] [public file name]
-5. Verify a proof:         $ ./zk-vm.sh verify-proof [proof file path] [public file path] 
+1. Setup phase 1:          $ ./zvm.sh phase1
+2. Setup phase 2:          $ ./zvm.sh phase2 [circuit name]
+3. Debug with the witness: $ ./zvm.sh debug [circuit name] [input json file path]
+4. Generate a proof:       $ ./zvm.sh generate-proof [proof file name] [public file name]
+5. Verify a proof:         $ ./zvm.sh verify-proof [proof file path] [public file path] 
 ```
 
 Please check [snarkjs](https://github.com/iden3/snarkjs/blob/master/README.md) and [circom](https://github.com/iden3/circom/blob/master/README.md) if you need how it works.
 
 # Tutorial
-This tutorial leads you how to play with [zk-vm circuit](https://github.com/Onther-Tech/zk-vm/blob/main/src/circuits/vm.circom).
+This tutorial leads you how to play with [zvm circuit](https://github.com/Onther-Tech/zvm/blob/main/src/circuits/vm.circom).
 
 ## Phase 1: General setup
 In this phase, you start a new powers of tau ceremony, contribute to the ceremony and apply a random beacon.
 ```
 $ cd src
-$ ./zk-vm.sh phase1
+$ ./zvm.sh phase1
 
 ... 
 
@@ -192,7 +192,7 @@ $ ./zk-vm.sh phase1
 You compile a circuit, generate the reference *zkey* and contribute to the phase 2 ceremony, similar to the previous step. 
 Finally, you export the verification key which is used for verifying a proof.
 ```
-$ ./zk-vm.sh phase2 vm
+$ ./zvm.sh phase2 vm
 
 ... 
 
@@ -214,9 +214,9 @@ PUSH 0x6
 ADD
 STOP
 ```
-* You can read the details of circuit input [here](https://github.com/Onther-Tech/zk-vm/blob/main/INPUT.md)
+* You can read the details of circuit input [here](https://github.com/Onther-Tech/zvm/blob/main/INPUT.md)
 ```
-$ ./zk-vm.sh debug vm vm-input.json
+$ ./zvm.sh debug vm vm-input.json
 
 ...
 
@@ -233,13 +233,13 @@ $ ./zk-vm.sh debug vm vm-input.json
 ## Generate a proof
 You generate a proof using the calculated witness.
 ```
-$ ./zk-vm.sh generate-proof proof public
+$ ./zvm.sh generate-proof proof public
 ```
 
 ## Verify the proof
 You verify the proof and it prints the verification result.
 ``` 
-$ ./zk-vm.sh verify-proof proof.json public.json
+$ ./zvm.sh verify-proof proof.json public.json
 [INFO]  snarkJS: OK!
 ```
 
