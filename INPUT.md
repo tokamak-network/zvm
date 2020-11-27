@@ -8,7 +8,7 @@ The input json file contain an array named `code`. Each item of the array repres
 component main = VM(16);
 ```
 
-You can find this line at the `src/circuits/vm.circom`. `VM(16)` shows that the input array size is sixteen as a fixed value, so `code` array should be padded by `0x0` to have sixteen elements in it. You need to start over from phase 2 setup to compile the modified circuit.
+You can find this line in the `src/circuits/vm.circom`. `VM(16)` shows that the input array size is sixteen as a fixed value, so `code` array should be padded by `0x0` to have sixteen elements in it. FYI, you need to start over from phase 2 setup to compile the modified circuit if you change the maximum size that the input array takes.
 
 ## Input scenarios
 There are a few input scenarios with different operations for your better understanding.
@@ -106,7 +106,7 @@ $ ./zvm.sh debug vm vm-input.json
 0
 [INFO]  snarkJS: FINISH: main
 ```
-It prints the stack and memory. There are 2, 3 on the stack after the second loop and only 5 (= 2 + 3) exists on the stack at the end of loops. Try the other arithmetic operations if you want.
+It prints inside of the stack and the memory. There are 2, 3 on the stack after the second loop and only 5 (= 2 + 3) exists on the stack at the end of loops. Try the other arithmetic operations if you want.
 
 ### Comparison & Bitwise logic operations
 ```
